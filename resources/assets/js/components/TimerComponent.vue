@@ -4,7 +4,7 @@
             <h3 class="panel-title">{{ client.name }}</h3>
         </div>
         <div class="panel-body">
-        <div class="text-center">
+            <div class="text-center">
                 <h1 class="title">{{ hours }} : {{ minutes }} : {{ seconds }}</h1>
             </div>
             <div class="text-center">

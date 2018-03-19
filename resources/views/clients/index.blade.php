@@ -3,13 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    Lista de clientes
-                    <a href="{{ route('clients.create') }}" class="btn btn-info">Novo</a>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Lista de clientes
+                        <a href="{{ route('clients.create') }}" class="btn btn-info">Novo</a>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="panel-body">
                     @if (session()->has('success'))
                         <div class="alert alert-success">
                             {{ session()->get('success') }}

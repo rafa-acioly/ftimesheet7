@@ -3,11 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Editar setor - {{ $sector->name }}</div>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Editar setor - {{ $sector->name }}
+                    </div>
+                </div>
 
-                <div class="card-body">
+                <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
@@ -32,8 +36,8 @@
                     {!! Form::model($sector, ['route' => ['sectors.update', $sector->id], 'method' => 'PUT']) !!}
                         {!! Form::label('Nome:') !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
-
-                        {!! Form::submit('Salvar', ['class' => 'btn btn-info']) !!}
+                        <br>
+                        {!! Form::submit('Salvar', ['class' => 'btn btn-success']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

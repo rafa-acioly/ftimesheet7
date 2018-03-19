@@ -8356,7 +8356,11 @@ button.close {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.card .card-header {
+.panel-body .table th form {
+  display: inline-block;
+}
+
+.panel-heading .panel-title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
