@@ -44755,9 +44755,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
 
 
 
@@ -44773,10 +44770,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
         }
     },
+
     data: function data() {
         return {
             status: 0,
             time: 0,
+            used: 0,
             hour: 0,
             min: 0,
             sec: 0,
@@ -44802,6 +44801,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var lapsed = this.time;
             var hrs = Math.floor(lapsed / 1000 / 60 / 60);
             return hrs >= 10 ? hrs : "0" + hrs;
+        },
+        usedTime: function usedTime() {
+            return this.usedHours + ":" + this.usedMinutes + ":" + this.usedSeconds;
+        },
+        usedHours: function usedHours() {
+            var lapsed = this.used;
+            var hrs = Math.floor(lapsed / 1000 / 60 / 60);
+            return hrs >= 10 ? hrs : "0" + hrs;
+        },
+        usedMinutes: function usedMinutes() {
+            var lapsed = this.used;
+            var min = Math.floor(lapsed / 100 / 60);
+            return min >= 10 ? min : "0" + min;
+        },
+        usedSeconds: function usedSeconds() {
+            var lapsed = this.used;
+            var sec = Math.floor(lapsed / 100 % 60);
+            return sec >= 10 ? sec : "0" + sec;
         }
     }),
 
@@ -44830,6 +44847,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.status = 0;
         },
         reset: function reset() {
+            this.used += this.time;
             this.time = 0;
             this.status = 0;
             this.sec = 0;
@@ -48019,7 +48037,8 @@ var render = function() {
   return _c("div", { staticClass: "panel panel-default" }, [
     _c("div", { staticClass: "panel-heading" }, [
       _c("h3", { staticClass: "panel-title" }, [
-        _vm._v(_vm._s(_vm.client.name))
+        _vm._v("\n            " + _vm._s(_vm.client.name) + "\n            "),
+        _c("span", { staticClass: "badge" }, [_vm._v(_vm._s(_vm.usedTime))])
       ])
     ]),
     _vm._v(" "),
@@ -48056,7 +48075,7 @@ var render = function() {
           {
             staticClass: "btn btn-warning",
             attrs: { disabled: _vm.status === 0 },
-            on: { click: _vm.pause }
+            on: { click: _vm.finish }
           },
           [_vm._v("\n                Pausar\n            ")]
         ),
@@ -48069,16 +48088,6 @@ var render = function() {
             on: { click: _vm.reset }
           },
           [_vm._v("\n                Reiniciar\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger",
-            attrs: { disabled: _vm.sec === 0 },
-            on: { click: _vm.finish }
-          },
-          [_vm._v("\n                Finalizar\n            ")]
         )
       ])
     ])

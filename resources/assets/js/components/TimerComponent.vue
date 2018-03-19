@@ -1,7 +1,10 @@
 <template>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ client.name }}</h3>
+            <h3 class="panel-title">
+                {{ client.name }}
+                <span class="badge">{{ usedTime }}</span>
+            </h3>
         </div>
         <div class="panel-body">
             <div class="text-center">
@@ -16,7 +19,7 @@
                 </button>
                 <button
                     class="btn btn-warning"
-                    @click="pause"
+                    @click="finish"
                     :disabled="status === 0">
                     Pausar
                 </button>
@@ -25,12 +28,6 @@
                     @click="reset"
                     :disabled="sec === 0">
                     Reiniciar
-                </button>
-                <button
-                    class="btn btn-danger"
-                    @click="finish"
-                    :disabled="sec === 0">
-                    Finalizar
                 </button>
             </div>
         </div>
@@ -51,9 +48,11 @@
                 default: () => ({})
             }
         },
+
         data: () => ({
             status: 0,
             time: 0,
+            used: 0,
             hour: 0,
             min: 0,
             sec: 0,
@@ -83,6 +82,28 @@
                 let lapsed = this.time
                 let hrs = Math.floor(lapsed / 1000 / 60 / 60);
                 return hrs >= 10 ? hrs : "0" + hrs
+            },
+
+            usedTime () {
+                return this.usedHours + ":" + this.usedMinutes + ":" + this.usedSeconds
+            },
+
+            usedHours () {
+                let lapsed = this.used
+                let hrs = Math.floor(lapsed / 1000 / 60 / 60);
+                return hrs >= 10 ? hrs : "0" + hrs
+            },
+
+            usedMinutes () {
+                let lapsed = this.used
+                let min = Math.floor(lapsed/100/60)
+                return min >= 10 ? min : "0" + min
+            },
+
+            usedSeconds () {
+                let lapsed = this.used;
+                let sec = Math.floor((lapsed / 100) % 60)
+                return sec >= 10 ? sec : "0" + sec
             }
         },
 
@@ -113,6 +134,7 @@
             },
 
             reset() {
+                this.used += this.time
                 this.time = 0;
                 this.status = 0;
                 this.sec = 0;
