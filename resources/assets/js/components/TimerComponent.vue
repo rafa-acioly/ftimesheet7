@@ -59,6 +59,14 @@
             mSec: 0
         }),
 
+        beforeMount() {
+            axios.get(`time/${this.client.id}`)
+            .then(response => {
+                this.used = response.data.time
+            })
+            .catch(error => console.warn(error))
+        },
+
         computed: {
             ...mapGetters(['getTimeObject']),
 

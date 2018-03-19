@@ -97,4 +97,23 @@ class TimerController extends Controller
     {
         //
     }
+
+    public function get($clientID)
+    {
+        $times = Auth::user()->times
+            ->where('client_id', $clientID)
+            ->where('created_at', '>=', \Carbon\Carbon::today());
+
+        $now = \Carbon\Carbon::now();
+        $time = \Carbon\Carbon::parse();
+
+        $times->each(function ($record) use (&$time, &$n){
+            list($hours, $minutes, $seconds) = explode(':', $record->duration);
+            $time->addHours($hours);
+            $time->addMinutes($minutes);
+            $time->addSeconds($seconds);
+        });
+
+        return response()->json(['time' => $now->diffInSeconds($time) * 100], 200)->header('Content-Type', 'application/json');
+    }
 }

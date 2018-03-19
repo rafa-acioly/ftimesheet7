@@ -24,6 +24,7 @@ Route::resource('users', 'UsersController');
 Route::resource('sectors', 'SectorsController');
 Route::resource('clients', 'ClientsController');
 
-Route::post('time/add', 'TimerController@store');
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('time/add', 'TimerController@store');
+Route::get('time/{clientID}', 'TimerController@get');
