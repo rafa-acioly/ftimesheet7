@@ -44,7 +44,7 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->client->fill($request->all()->except(['_token']));
+        $this->client->fill($request->all());
         $this->client->save();
 
         return back()->with('success', 'Client salvo com sucesso!');
