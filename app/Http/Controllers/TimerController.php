@@ -109,9 +109,7 @@ class TimerController extends Controller
 
         $times->each(function ($record) use (&$time, &$n){
             list($hours, $minutes, $seconds) = explode(':', $record->duration);
-            $time->addHours($hours);
-            $time->addMinutes($minutes);
-            $time->addSeconds($seconds);
+            $time->addHours($hours)->addMinutes($minutes)->addSeconds($seconds);
         });
 
         return response()->json(['time' => $now->diffInSeconds($time) * 100], 200)->header('Content-Type', 'application/json');
