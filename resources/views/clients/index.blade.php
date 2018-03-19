@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Lista de setores
-                    <a href="{{ route('sectors.create') }}" class="btn btn-info">Novo</a>
+                    Lista de clientes
+                    <a href="{{ route('clients.create') }}" class="btn btn-info">Novo</a>
                 </div>
                 <div class="card-body">
                     @if (session()->has('success'))
@@ -18,19 +18,17 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Setor</th>
+                                <th>Nome</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sectors as $sector)
+                            @foreach ($clients as $client)
                                 <tr>
-                                    <th>{{ $sector->id }}</th>
-                                    <th>{{ $sector->name }}</th>
+                                    <th>{{ $client->name }}</th>
                                     <th>
-                                        <a href="{{ route('sectors.edit', $sector->id) }}" class="btn btn-success">Editar</a>
-                                        <form action="{{ route('sectors.destroy', $sector->id) }}" method="POST">
+                                        <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-success">Editar</a>
+                                        <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <button class="btn" type="submit">Excluir</button>

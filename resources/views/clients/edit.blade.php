@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Editar cliente - {{ $user->name }}</div>
+                <div class="card-header">Editar usuario - {{ $client->name }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -29,18 +29,9 @@
                         </div>
                     @endif
 
-                    {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'PUT']) !!}
+                    {!! Form::model($client, ['route' => ['clients.update', $client->id], 'method' => 'PUT']) !!}
                         {!! Form::label('Nome:') !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
-
-                        {!! Form::label('Email:') !!}
-                        {!! Form::email('email', null, ['class' => 'form-control']) !!}
-
-                        {!! Form::label('Setor:') !!}
-                        {!! Form::select('sector_id', $sectors, null, ['class' => 'form-control']) !!}
-
-                        {!! Form::label('Senha:') !!}
-                        {!! Form::password('password', ['class' => 'form-control']) !!}
 
                         {!! Form::submit('Salvar', ['class' => 'btn']) !!}
                     {!! Form::close() !!}

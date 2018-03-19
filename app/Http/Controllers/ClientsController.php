@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Client;
 
 class ClientsController extends Controller
 {
+    private $client;
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,9 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        //
+        return view('clients.index', [
+            'clients' => $this->client->all()
+        ]);
     }
 
     /**
@@ -23,7 +33,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -34,7 +44,10 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->client->fill($request->all()->except(['_token']));
+        $this->client->save();
+
+        return back()->with('success', 'Client salvo com sucesso!');
     }
 
     /**
@@ -56,7 +69,11 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = $this->client->find($id);
+        
+        return view('clients.edit', [
+            'client' => $client
+        ]);
     }
 
     /**
@@ -68,7 +85,12 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $client = $this->client->find($id);
+
+        $client->name = $request->get('name');
+        $client->save();
+
+        return back()->with('success', 'Client salvo com sucesso!');
     }
 
     /**
@@ -79,15 +101,15 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = $this->client->find($id);
+        if ($client->exists()) {
+            $client->delete();
+            return back()->with('success', 'Client excluido com sucesso!');
+        }
     }
 
     public function all()
     {
-        $clients = \App\Client::all();
-
-        return response()
-            ->json($clients->toArray(), 200)
-            ->header('Content-Type', 'application/json');
+        return $this->client->all()->toJson();
     }
 }

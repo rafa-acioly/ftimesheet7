@@ -67,7 +67,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="" class="dropdown-item">
+                                        <a href="{{ route('clients.index') }}" class="dropdown-item">
                                             <i class="fa fa-users"></i>
                                             Clientes
                                         </a>
