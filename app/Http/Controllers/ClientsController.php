@@ -110,6 +110,6 @@ class ClientsController extends Controller
 
     public function all()
     {
-        return $this->client->all()->toJson();
+        return \DB::table('clients')->orderBy('name', 'asc')->get()->toJson();
     }
 }

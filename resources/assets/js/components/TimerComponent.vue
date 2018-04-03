@@ -29,6 +29,17 @@
                     :disabled="sec === 0">
                     Reiniciar
                 </button>
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cogs"></i>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" @click="addHour">+1 Hora</a></li>
+                        <li><a href="#" @click="removeHour">-1 Hora</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -68,10 +79,8 @@
         },
 
         computed: {
-            ...mapGetters(['getTimeObject']),
-
             full () {
-                return this.hour + ":" + this.minutes + ":" + this.seconds
+                return this.hours + ":" + this.minutes + ":" + this.seconds
             },
 
             seconds () {
@@ -82,13 +91,14 @@
 
             minutes () {
                 let lapsed = this.time
-                let min = Math.floor(lapsed/100/60)
-                return min >= 10 ? min : "0" + min
+                let min = Math.floor((lapsed / 100) / 60)
+                if (min >= 60) return min - 60
+                return min
             },
 
             hours () {
                 let lapsed = this.time
-                let hrs = Math.floor(lapsed / 1000 / 60 / 60);
+                let hrs = Math.floor(lapsed / 100 / 60 / 60);
                 return hrs >= 10 ? hrs : "0" + hrs
             },
 
@@ -98,13 +108,13 @@
 
             usedHours () {
                 let lapsed = this.used
-                let hrs = Math.floor(lapsed / 1000 / 60 / 60);
+                let hrs = Math.floor(lapsed / 100 / 60 / 60);
                 return hrs >= 10 ? hrs : "0" + hrs
             },
 
             usedMinutes () {
                 let lapsed = this.used
-                let min = Math.floor(lapsed/100/60)
+                let min = Math.floor(lapsed / 100 / 60)
                 return min >= 10 ? min : "0" + min
             },
 
@@ -206,6 +216,19 @@
 
                     }, 10);
                 }
+            },
+
+            addHour() {
+                this.time += 360000
+                this.hour += 1
+            },
+
+            removeHour() {
+                if (this.hour <= 0) {
+                    return
+                }
+                this.time -= 360000
+                this.hour -= 1
             }
         }
     };

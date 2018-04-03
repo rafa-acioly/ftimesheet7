@@ -977,7 +977,7 @@ module.exports = Cancel;
 /* unused harmony export install */
 /* unused harmony export mapState */
 /* unused harmony export mapMutations */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
+/* unused harmony export mapGetters */
 /* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -44716,8 +44716,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(10);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44794,9 +44803,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['getTimeObject']), {
+    computed: {
         full: function full() {
-            return this.hour + ":" + this.minutes + ":" + this.seconds;
+            return this.hours + ":" + this.minutes + ":" + this.seconds;
         },
         seconds: function seconds() {
             var lapsed = this.time;
@@ -44806,11 +44815,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         minutes: function minutes() {
             var lapsed = this.time;
             var min = Math.floor(lapsed / 100 / 60);
-            return min >= 10 ? min : "0" + min;
+            if (min >= 60) return min - 60;
+            return min;
         },
         hours: function hours() {
             var lapsed = this.time;
-            var hrs = Math.floor(lapsed / 1000 / 60 / 60);
+            var hrs = Math.floor(lapsed / 100 / 60 / 60);
             return hrs >= 10 ? hrs : "0" + hrs;
         },
         usedTime: function usedTime() {
@@ -44818,7 +44828,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         usedHours: function usedHours() {
             var lapsed = this.used;
-            var hrs = Math.floor(lapsed / 1000 / 60 / 60);
+            var hrs = Math.floor(lapsed / 100 / 60 / 60);
             return hrs >= 10 ? hrs : "0" + hrs;
         },
         usedMinutes: function usedMinutes() {
@@ -44831,7 +44841,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var sec = Math.floor(lapsed / 100 % 60);
             return sec >= 10 ? sec : "0" + sec;
         }
-    }),
+    },
 
     methods: {
         start: function start(event) {
@@ -44921,6 +44931,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     _this3.timer();
                 }, 10);
             }
+        },
+        addHour: function addHour() {
+            this.time += 360000;
+            this.hour += 1;
+        },
+        removeHour: function removeHour() {
+            if (this.hour <= 0) {
+                return;
+            }
+            this.time -= 360000;
+            this.hour -= 1;
         }
     }
 });
@@ -48099,12 +48120,53 @@ var render = function() {
             on: { click: _vm.reset }
           },
           [_vm._v("\n                Reiniciar\n            ")]
-        )
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "btn-group" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("li", [
+              _c("a", { attrs: { href: "#" }, on: { click: _vm.addHour } }, [
+                _vm._v("+1 Hora")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", { attrs: { href: "#" }, on: { click: _vm.removeHour } }, [
+                _vm._v("-1 Hora")
+              ])
+            ])
+          ])
+        ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-default dropdown-toggle",
+        attrs: {
+          type: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-cogs" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "caret" })
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

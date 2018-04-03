@@ -72,6 +72,13 @@
                                             Clientes
                                         </a>
                                     </li>
+
+                                    <li>
+                                        <a href="" class="dropdown-item">
+                                            <i class="fa fa-chart-bar"></i>
+                                            Relatórios
+                                        </a>
+                                    </li>
                                     
                                     <hr>
 
