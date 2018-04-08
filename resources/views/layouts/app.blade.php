@@ -74,7 +74,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="" class="dropdown-item">
+                                        <a href="{{ route('reports.index') }}" class="dropdown-item">
                                             <i class="fa fa-chart-bar"></i>
                                             Relatórios
                                         </a>

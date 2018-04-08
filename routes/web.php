@@ -28,3 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('time/add', 'TimerController@store');
 Route::get('time/{clientID}', 'TimerController@get');
+
+Route::resource('reports', 'ReportController');
+Route::post('reports/byuser', 'ReportController@filterByUser')->name('reports.byuser');
+Route::post('reports/bysector', 'ReportController@filterBySector')->name('reports.bysector');

@@ -24,6 +24,6 @@ class Time extends Model
 
     public function clients()
     {
-        return $this->hasOne(Client::class);
+        return $this->hasOne(Client::class, 'id', 'client_id');
     }
 }

@@ -44815,8 +44815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         minutes: function minutes() {
             var lapsed = this.time;
             var min = Math.floor(lapsed / 100 / 60);
-            if (min >= 60) return min - 60;
-            return min;
+            return min >= 10 ? min : "0" + min;
         },
         hours: function hours() {
             var lapsed = this.time;
@@ -48123,7 +48122,24 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "btn-group" }, [
-          _vm._m(0),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default dropdown-toggle",
+              attrs: {
+                disabled: _vm.status === 1,
+                type: "button",
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false"
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-cogs" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "caret" })
+            ]
+          ),
           _vm._v(" "),
           _c("ul", { staticClass: "dropdown-menu" }, [
             _c("li", [
@@ -48143,30 +48159,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-default dropdown-toggle",
-        attrs: {
-          type: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _c("i", { staticClass: "fa fa-cogs" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "caret" })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -31,7 +31,7 @@
                 </button>
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button :disabled="status === 1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-cogs"></i>
                         <span class="caret"></span>
                     </button>
@@ -92,8 +92,7 @@
             minutes () {
                 let lapsed = this.time
                 let min = Math.floor((lapsed / 100) / 60)
-                if (min >= 60) return min - 60
-                return min
+                return min >= 10 ? min : "0" + min
             },
 
             hours () {
