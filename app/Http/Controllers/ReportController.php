@@ -118,7 +118,11 @@ class ReportController extends Controller
 
     public function filterBySector(Request $request)
     {
-        $sectorsTime = \App\Sector::find($request->id)->times->groupBy('client_id');
+        $sectorsTime = \App\Sector::find($request->id)
+            ->times()
+            ->whereBetween('created_at', [$request->start, $request->end])
+            ->get()
+            ->groupBy('client_id');
 
         $tm = \Carbon\Carbon::now();
         $sectorsTime->each(function ($s) use ($tm) {
