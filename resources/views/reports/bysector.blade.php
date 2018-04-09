@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-7 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Relatórios de {{ $user }} - {{ $data }}
+                        Relatórios do setor {{ $sector }} - {{ $data }}
                     </div>
                 </div>
                 <div class="panel-body">
@@ -27,8 +27,8 @@
                         <tbody>
                             @foreach($reports as $report)
                                 <tr>
-                                    <td>{{ $report->c }}</td>
-                                    <td>{{ gmdate('H:i:s', $report->s) }}</td>
+                                    <td>{{ $report->client }}</td>
+                                    <td>{{ gmdate('H:i:s', $report->t) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -14,6 +14,7 @@ class Time extends Model
     protected $fillable = [
         'user_id',
         'client_id',
+        'sector_id',
         'duration'
     ];
     

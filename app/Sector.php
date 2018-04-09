@@ -19,4 +19,9 @@ class Sector extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function times()
+    {
+        return $this->hasMany(Time::class);
+    }
 }

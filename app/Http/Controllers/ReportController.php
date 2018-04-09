@@ -118,7 +118,23 @@ class ReportController extends Controller
 
     public function filterBySector(Request $request)
     {
-        $sector = \App\Sector::find($request->id);
-        $userSector = $sector->users;
+        $sectorsTime = \App\Sector::find($request->id)->times->groupBy('client_id');
+
+        $tm = \Carbon\Carbon::now();
+        $sectorsTime->each(function ($s) use ($tm) {
+            $s->t = \Carbon\Carbon::now();
+            $s->each(function ($time) use (&$s) {
+                $s->client = $time->clients->name;
+                list($h, $m, $sec) = explode(':', $time->duration);
+                $s->t->addHour($h)->addMinutes($m)->addSeconds($sec);
+            });
+            $s->t = $tm->diffInSeconds($s->t);
+        });
+
+        return view('reports.bysector', [
+            'sector' => \App\Sector::find($request->id)->name,
+            'reports' => $sectorsTime,
+            'data' => (new \DateTime($request->start))->format('d/m/Y') . " e " . (new \DateTime($request->end))->format('d/m/Y'),
+        ]);
     }
 }

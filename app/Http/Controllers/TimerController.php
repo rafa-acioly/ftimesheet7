@@ -45,6 +45,7 @@ class TimerController extends Controller
         $request = $request->all();
         $data = array_merge([
             'user_id' => Auth::user()->id,
+            'sector_id' => Auth::user()->sectors->id
         ], $request);
 
         $this->time->fill($data);
