@@ -8,6 +8,8 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         Relatórios do setor {{ $sector }} - {{ $data }}
+
+                        <a href="{{ route('reports.index') }}" class="btn btn-info">Voltar</a>
                     </div>
                 </div>
                 <div class="panel-body">
