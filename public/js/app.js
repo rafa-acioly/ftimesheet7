@@ -44532,7 +44532,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.col-md-5[data-v-08908c9d] {\n    margin-bottom: 1rem;\n}\n", ""]);
+exports.push([module.i, "\n.col-md-5[data-v-08908c9d] {\n    margin-bottom: 1rem;\n}\n.flex-center[data-v-08908c9d] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n", ""]);
 
 // exports
 
@@ -48180,7 +48180,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c(
       "div",
-      { staticClass: "row justify-content-center" },
+      { staticClass: "row flex-center" },
       _vm._l(_vm.clients, function(client) {
         return _c(
           "div",

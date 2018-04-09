@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row flex-center">
             <div class="col-md-5" v-for="client in clients" v-bind:key="client.id">
                 <timer :client="client"></timer>
             </div>
@@ -34,6 +34,12 @@
 <style scoped>
     .col-md-5 {
         margin-bottom: 1rem;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 </style>
 
