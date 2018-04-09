@@ -52,36 +52,38 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('users.index') }}" class="dropdown-item">
-                                            <i class="fas fa-user"></i>
-                                            Usuarios
-                                        </a>
-                                    </li>
+                                    @if (Auth::user()->id === 1)
+                                        <li>
+                                            <a href="{{ route('users.index') }}" class="dropdown-item">
+                                                <i class="fas fa-user"></i>
+                                                Usuarios
+                                            </a>
+                                        </li>
 
-                                    <li>
-                                        <a href="{{ route('sectors.index') }}" class="dropdown-item">
-                                            <i class="fas fa-globe"></i>
-                                            Setores
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ route('sectors.index') }}" class="dropdown-item">
+                                                <i class="fas fa-globe"></i>
+                                                Setores
+                                            </a>
+                                        </li>
 
-                                    <li>
-                                        <a href="{{ route('clients.index') }}" class="dropdown-item">
-                                            <i class="fa fa-users"></i>
-                                            Clientes
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ route('clients.index') }}" class="dropdown-item">
+                                                <i class="fa fa-users"></i>
+                                                Clientes
+                                            </a>
+                                        </li>
 
-                                    <li>
-                                        <a href="{{ route('reports.index') }}" class="dropdown-item">
-                                            <i class="fa fa-chart-bar"></i>
-                                            Relatórios
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ route('reports.index') }}" class="dropdown-item">
+                                                <i class="fa fa-chart-bar"></i>
+                                                Relatórios
+                                            </a>
+                                        </li>
                                     
-                                    <hr>
-
+                                        <hr>
+                                    @endif
+                                    
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
