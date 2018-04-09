@@ -151,7 +151,6 @@
             },
 
             reset() {
-                this.used += this.time
                 this.time = 0;
                 this.status = 0;
                 this.sec = 0;

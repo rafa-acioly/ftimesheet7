@@ -44867,7 +44867,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.status = 0;
         },
         reset: function reset() {
-            this.used += this.time;
             this.time = 0;
             this.status = 0;
             this.sec = 0;
