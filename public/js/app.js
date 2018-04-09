@@ -44763,7 +44763,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -48118,42 +48117,7 @@ var render = function() {
             on: { click: _vm.reset }
           },
           [_vm._v("\n                Reiniciar\n            ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "btn-group" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default dropdown-toggle",
-              attrs: {
-                disabled: _vm.status === 1,
-                type: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false"
-              }
-            },
-            [
-              _c("i", { staticClass: "fa fa-cogs" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "caret" })
-            ]
-          ),
-          _vm._v(" "),
-          _c("ul", { staticClass: "dropdown-menu" }, [
-            _c("li", [
-              _c("a", { attrs: { href: "#" }, on: { click: _vm.addHour } }, [
-                _vm._v("+1 Hora")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" }, on: { click: _vm.removeHour } }, [
-                _vm._v("-1 Hora")
-              ])
-            ])
-          ])
-        ])
+        )
       ])
     ])
   ])

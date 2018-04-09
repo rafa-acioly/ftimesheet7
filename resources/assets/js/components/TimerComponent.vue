@@ -29,8 +29,7 @@
                     :disabled="sec === 0">
                     Reiniciar
                 </button>
-                <!-- Single button -->
-                <div class="btn-group">
+                <!-- <div class="btn-group">
                     <button :disabled="status === 1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-cogs"></i>
                         <span class="caret"></span>
@@ -39,7 +38,7 @@
                         <li><a href="#" @click="addHour">+1 Hora</a></li>
                         <li><a href="#" @click="removeHour">-1 Hora</a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
