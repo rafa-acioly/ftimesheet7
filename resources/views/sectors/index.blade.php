@@ -22,6 +22,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Setor</th>
+                                <th>Data de cadastro</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -30,6 +31,7 @@
                                 <tr>
                                     <th>{{ $sector->id }}</th>
                                     <th>{{ $sector->name }}</th>
+                                    <th>{{ $sector->created_at->format('d/m/Y') }}</th>
                                     <th>
                                         <a href="{{ route('sectors.edit', $sector->id) }}" class="btn btn-success">Editar</a>
                                         <form action="{{ route('sectors.destroy', $sector->id) }}" method="POST">

@@ -20,14 +20,18 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Nome</th>
+                                <th>Data de cadastro</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($clients as $client)
                                 <tr>
+                                    <th>{{ $client->id }}</th>
                                     <th>{{ $client->name }}</th>
+                                    <th>{{ $client->created_at->format('d/m/Y') }}</th>
                                     <th>
                                         <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-success">Editar</a>
                                         <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
