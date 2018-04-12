@@ -61177,6 +61177,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.status = 1;
+            console.log(this.status);
             this.runClock = setInterval(function () {
                 document.getElementById(_this2.client.id).innerHTML = __WEBPACK_IMPORTED_MODULE_3_moment___default()().hour(0).minute(0).second(_this2.counter++).format('HH:mm:ss');
             }, 1000);

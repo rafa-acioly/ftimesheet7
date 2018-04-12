@@ -90,6 +90,7 @@
         methods: {
             startWatch() {
                 this.status = 1
+                console.log(this.status);
                 this.runClock = setInterval(() => {
                     document.getElementById(this.client.id).innerHTML = moment().hour(0).minute(0).second(this.counter++).format('HH:mm:ss');
                 }, 1000);

@@ -83,6 +83,13 @@
                                     
                                         <hr>
                                     @endif
+
+                                    <li>
+                                        <a href="{{ route('reports.history') }}" class="dropdown-item">
+                                            <i class="fa fa-chart-bar"></i>
+                                            Histórico
+                                        </a>
+                                    </li>
                                     
                                     <li>
                                         <a href="{{ route('logout') }}"

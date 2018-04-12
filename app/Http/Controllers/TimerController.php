@@ -96,12 +96,15 @@ class TimerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $time = \App\Time::find($id);
+        $time->delete();
+        
+        return back()->with('success', 'Tempo deletado com sucesso.');
     }
 
     public function get($clientID)
     {
-        $times = Auth::user()->times
+        $times = \Auth::user()->times
             ->where('client_id', $clientID)
             ->where('created_at', '>=', \Carbon\Carbon::today());
 
