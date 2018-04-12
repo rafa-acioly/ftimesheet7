@@ -34,7 +34,10 @@
                                         <th>{{ $times->created_at->format('d/m/Y') }}</th>
                                         <th>{{ $times->duration }}</th>
                                         <th>
-                                            <!-- <a href="{{ route('time.edit', $times->id) }}" class="btn btn-success">Editar</a> -->
+                                            <!-- <a href="#"
+                                                class="btn btn-success" 
+                                                data-toggle="modal"
+                                                data-target="#{{ $times->id }}">Editar</a> -->
                                             <form action="{{ route('time.destroy', $times->id) }}" method="POST">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
