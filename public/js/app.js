@@ -61122,6 +61122,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -61143,8 +61149,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             counter: 0,
             runClock: null,
-            used: 0,
-            status: 0
+            status: 0,
+            used: 0
         };
     },
 
@@ -61160,22 +61166,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
+    computed: {
+        hasUsed: function hasUsed() {
+            return __WEBPACK_IMPORTED_MODULE_3_moment___default()().hour(0).minute(0).second(this.used).format('HH:mm:ss');
+        }
+    },
+
     methods: {
         startWatch: function startWatch() {
             var _this2 = this;
 
             this.status = 1;
             this.runClock = setInterval(function () {
-                document.querySelector('.title').innerHTML = __WEBPACK_IMPORTED_MODULE_3_moment___default()().hour(0).minute(0).second(_this2.counter++).format('HH:mm:ss');
+                document.getElementById(_this2.client.id).innerHTML = __WEBPACK_IMPORTED_MODULE_3_moment___default()().hour(0).minute(0).second(_this2.counter++).format('HH:mm:ss');
             }, 1000);
+
+            var startBTN = document.querySelector('#client-' + this.client.id);
+            startBTN.innerHTML = 'Continuar';
         },
         stopWatch: function stopWatch() {
             this.status = 0;
             clearInterval(this.runClock);
         },
         resetWatch: function resetWatch() {
+            this.stopWatch();
             this.counter = 0;
-            this.runClock = null, document.querySelector('.title').innerHTML = "00:00:00";
+            this.runClock = null;
+            document.getElementById(this.client.id).innerHTML = "00:00:00";
+        },
+        addHour: function addHour() {
+            this.counter += 3600;
+        },
+        removeHour: function removeHour() {
+            if (this.counter < 3600) {
+                return;
+            }
+            this.counter -= 3600;
+        },
+        finishWatch: function finishWatch() {
+            var _this3 = this;
+
+            this.stopWatch();
+            var time = document.getElementById(this.client.id).innerHTML;
+            var dataAPI = {
+                'client_id': this.client.id,
+                'duration': time
+            };
+
+            __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a.queue([{
+                type: 'info',
+                title: 'Gravar tempo?',
+                text: 'Ao gravar o tempo o mesmo será resetado automaticamente',
+                confirmButtonText: 'Sim, gravar!',
+                showLoaderOnConfirm: true,
+                preConfirm: function preConfirm() {
+                    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('time/add', dataAPI).then(function (response) {
+                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a.insertQueueStep({
+                            type: 'success',
+                            title: 'Pronto',
+                            html: 'Voc\xEA gravou <strong>' + time + '</strong> para o cliente <strong>' + _this3.client.name + '</strong>'
+                        });
+                        var startBTN = document.querySelector('#client-' + _this3.client.id);
+                        startBTN.innerHTML = 'Iniciar';
+                        _this3.used += _this3.counter;
+                        _this3.$store.commit('stop', false);
+                        _this3.resetWatch();
+                    }).catch(function (error) {
+                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a.insertQueueStep({
+                            type: 'error',
+                            title: 'Ops! algo deu errado',
+                            text: 'entre em contato com o administrador'
+                        });
+                        console.warn(error);
+                    });
+                }
+            }]);
         }
     }
 });
@@ -64572,12 +64637,16 @@ var render = function() {
     _c("div", { staticClass: "panel-heading" }, [
       _c("h3", { staticClass: "panel-title" }, [
         _vm._v("\n            " + _vm._s(_vm.client.name) + "\n            "),
-        _c("span", { staticClass: "badge" }, [_vm._v(_vm._s(_vm.used))])
+        _c("span", { staticClass: "badge" }, [_vm._v(_vm._s(_vm.hasUsed))])
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "panel-body" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "text-center" }, [
+        _c("h1", { staticClass: "title", attrs: { id: _vm.client.id } }, [
+          _vm._v("00:00:00")
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "text-center" }, [
         _c(
@@ -64595,30 +64664,56 @@ var render = function() {
           {
             staticClass: "btn btn-warning",
             attrs: { disabled: _vm.status === 0 },
-            on: { click: _vm.stopWatch }
+            on: { click: _vm.finishWatch }
           },
-          [_vm._v("\n                Pausar\n            ")]
+          [_vm._v("\n                Parar\n            ")]
         ),
         _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-info", on: { click: _vm.resetWatch } },
           [_vm._v("\n                Reiniciar\n            ")]
-        )
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "btn-group" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default dropdown-toggle",
+              attrs: {
+                disabled: _vm.status === 0,
+                type: "button",
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false"
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-cogs" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "caret" })
+            ]
+          ),
+          _vm._v(" "),
+          _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("li", [
+              _c("a", { attrs: { href: "#" }, on: { click: _vm.addHour } }, [
+                _vm._v("+1 Hora")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", { attrs: { href: "#" }, on: { click: _vm.removeHour } }, [
+                _vm._v("-1 Hora")
+              ])
+            ])
+          ])
+        ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("h1", { staticClass: "title" }, [_vm._v("00:00:00")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

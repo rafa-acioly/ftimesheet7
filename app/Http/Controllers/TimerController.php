@@ -113,6 +113,6 @@ class TimerController extends Controller
             $time->addHours($hours)->addMinutes($minutes)->addSeconds($seconds);
         });
 
-        return response()->json(['time' => $now->diffInSeconds($time) * 100], 200)->header('Content-Type', 'application/json');
+        return response()->json(['time' => $now->diffInSeconds($time)], 200)->header('Content-Type', 'application/json');
     }
 }
