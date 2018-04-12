@@ -141,4 +141,11 @@ class ReportController extends Controller
             'data' => (new \DateTime($request->start))->format('d/m/Y') . " e " . (new \DateTime($request->end))->format('d/m/Y'),
         ]);
     }
+
+    public function history()
+    {
+        $history = \Auth::user()->times()->orderBy('created_at', 'desc')->get();
+
+        return view('reports.history', compact('history'));
+    }
 }
