@@ -154,11 +154,9 @@ class ReportController extends Controller
             $total->addHour($h)->addMinutes($m)->addSeconds($sec);
         }
 
-        return view('reports.byclient', [
-            'client' => $client->name,
-            'time' => $now->diffInSeconds($total),
-            'data' => (new \DateTime($request->start))->format('d/m/Y') . " e " . (new \DateTime($request->end))->format('d/m/Y'),
-        ]);
+        return response()->json([
+            'time' => $now->diff($total)->format('%H:%M:%S'),
+        ], 200)->header('Content-Type', 'application/json');
     }
 
     public function history()

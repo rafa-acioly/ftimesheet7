@@ -37,6 +37,7 @@ const store = new Vuex.Store({
 })
 
 Vue.component('main-component', require('./components/MainComponent.vue'));
+Vue.component('client-component', require('./components/ClientComponent.vue'));
 
 const app = new Vue({
     el: '#app',
