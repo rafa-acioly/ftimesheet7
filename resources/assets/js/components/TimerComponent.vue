@@ -14,7 +14,8 @@
                 <button 
                     class="btn btn-success"
                     @click="startWatch"
-                    :id="'client-'+client.id">
+                    :id="'client-'+client.id"
+                    :disabled="status === 1">
                     Iniciar
                 </button>
                 <button
@@ -26,7 +27,7 @@
                 <button
                     class="btn btn-info"
                     @click="resetWatch">
-                    Reiniciar
+                    Resetar
                 </button>
                 <div class="btn-group">
                     <button 
@@ -107,6 +108,7 @@
                 this.counter = 0;
                 this.runClock = null;
                 document.getElementById(this.client.id).innerHTML = "00:00:00";
+                document.querySelector('#client-'+this.client.id).innerHTML = "Iniciar";
             },
 
             addHour() {
@@ -133,6 +135,8 @@
                     title: 'Gravar tempo?',
                     text: 'Ao gravar o tempo o mesmo será resetado automaticamente',
                     confirmButtonText: 'Sim, gravar!',
+                    cancelButtonText: 'Não, cancelar!',
+                    showCancelButton: true,
                     showLoaderOnConfirm: true,
                     preConfirm: () => {
                         return axios.post('time/add', dataAPI)

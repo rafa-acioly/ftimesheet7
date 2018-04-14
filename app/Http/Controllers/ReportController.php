@@ -16,6 +16,7 @@ class ReportController extends Controller
         $data = [
             'users' => \App\User::all()->pluck('name', 'id'),
             'sectors' => \App\Sector::all()->pluck('name', 'id'),
+            'clients' => \App\Client::all()->pluck('name', 'id'),
         ];
         
         return view('reports.index', $data);
@@ -138,6 +139,24 @@ class ReportController extends Controller
         return view('reports.bysector', [
             'sector' => \App\Sector::find($request->id)->name,
             'reports' => $sectorsTime,
+            'data' => (new \DateTime($request->start))->format('d/m/Y') . " e " . (new \DateTime($request->end))->format('d/m/Y'),
+        ]);
+    }
+
+    public function filterByClient(Request $request)
+    {
+        $client = \App\Client::find($request->id);
+
+        $now = \Carbon\Carbon::now();
+        $total = \Carbon\Carbon::now();
+        foreach($client->times as $time) {
+            list($h, $m, $sec) = explode(':', $time->duration);
+            $total->addHour($h)->addMinutes($m)->addSeconds($sec);
+        }
+
+        return view('reports.byclient', [
+            'client' => $client->name,
+            'time' => $now->diffInSeconds($total),
             'data' => (new \DateTime($request->start))->format('d/m/Y') . " e " . (new \DateTime($request->end))->format('d/m/Y'),
         ]);
     }
