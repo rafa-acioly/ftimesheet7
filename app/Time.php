@@ -17,6 +17,8 @@ class Time extends Model
         'sector_id',
         'duration'
     ];
+
+    protected $timestamp = true;
     
     public function users()
     {

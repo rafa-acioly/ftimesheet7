@@ -8,7 +8,7 @@
         </div>
         <div class="panel-body">
             <div class="text-center">
-                <h1 class="title" :id="client.id">00:00:00</h1>
+                <h1 class="title" :id="client.id" v-html="fullTime"></h1>
             </div>
             <div class="text-center">
                 <button 
@@ -21,7 +21,7 @@
                 <button
                     class="btn btn-warning"
                     @click="finishWatch"
-                    :disabled="status === 0">
+                    :disabled="counter === 0">
                     Parar
                 </button>
                 <button
@@ -30,19 +30,29 @@
                     Resetar
                 </button>
                 <div class="btn-group">
-                    <button 
-                        :disabled="status === 0" 
+                    <button
                         type="button" 
                         class="btn btn-default dropdown-toggle" 
-                        data-toggle="dropdown" 
-                        aria-haspopup="true" 
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
                         aria-expanded="false">
                         <i class="fa fa-cogs"></i>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" @click="addHour">+1 Hora</a></li>
-                        <li><a href="#" @click="removeHour">-1 Hora</a></li>
+                        <h6 class="dropdown-header">Horas</h6>
+                        <li><a href="#" @click="addSeconds(3600)">+1 Hora</a></li>
+                        <li><a href="#" @click="removeSeconds(3600)">-1 Hora</a></li>
+                        <h6 class="dropdown-header">Adicionar Minutos</h6>
+                        <li><a href="#" @click="addSeconds(300)">+5 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds(600)">+10 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds(900)">+15 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds(1800)">+30 Minutos</a></li>
+                        <h6 class="dropdown-header">Remover Minutos</h6>
+                        <li><a href="#" @click="removeSeconds(300)">-5 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds(600)">-10 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds(900)">-15 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds(1800)">-30 Minutos</a></li>
                     </ul>
                 </div>
             </div>
@@ -70,7 +80,11 @@
             counter: 0,
             runClock: null,
             status: 0,
-            used: 0
+            used: 0,
+
+            addHr: 0,
+            addMin: 0,
+            addSec: 0,
         }),
 
         beforeMount() {
@@ -84,6 +98,9 @@
         computed: {
             hasUsed () {
                 return moment().hour(0).minute(0).second(this.used).format('HH:mm:ss');
+            },
+            fullTime() {
+                return moment().hour(0).minute(0).second(this.counter).format('HH:mm:ss');
             }
         },
 
@@ -111,8 +128,16 @@
                 document.querySelector('#client-'+this.client.id).innerHTML = "Iniciar";
             },
 
-            addHour() {
-                this.counter += 3600;
+            addSeconds(quantity) {
+                this.counter += quantity;
+            },
+
+            removeSeconds(quantity) {
+                if (this.counter < quantity) {
+                    return;
+                }
+
+                this.counter -= quantity;
             },
 
             removeHour() {

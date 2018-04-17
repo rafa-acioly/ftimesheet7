@@ -64242,6 +64242,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64264,7 +64274,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             counter: 0,
             runClock: null,
             status: 0,
-            used: 0
+            used: 0,
+
+            addHr: 0,
+            addMin: 0,
+            addSec: 0
         };
     },
 
@@ -64282,6 +64296,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         hasUsed: function hasUsed() {
             return __WEBPACK_IMPORTED_MODULE_3_moment___default()().hour(0).minute(0).second(this.used).format('HH:mm:ss');
+        },
+        fullTime: function fullTime() {
+            return __WEBPACK_IMPORTED_MODULE_3_moment___default()().hour(0).minute(0).second(this.counter).format('HH:mm:ss');
         }
     },
 
@@ -64308,8 +64325,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             document.getElementById(this.client.id).innerHTML = "00:00:00";
             document.querySelector('#client-' + this.client.id).innerHTML = "Iniciar";
         },
-        addHour: function addHour() {
-            this.counter += 3600;
+        addSeconds: function addSeconds(quantity) {
+            this.counter += quantity;
+        },
+        removeSeconds: function removeSeconds(quantity) {
+            if (this.counter < quantity) {
+                return;
+            }
+
+            this.counter -= quantity;
         },
         removeHour: function removeHour() {
             if (this.counter < 3600) {
@@ -64647,9 +64671,11 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "panel-body" }, [
       _c("div", { staticClass: "text-center" }, [
-        _c("h1", { staticClass: "title", attrs: { id: _vm.client.id } }, [
-          _vm._v("00:00:00")
-        ])
+        _c("h1", {
+          staticClass: "title",
+          attrs: { id: _vm.client.id },
+          domProps: { innerHTML: _vm._s(_vm.fullTime) }
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "text-center" }, [
@@ -64670,7 +64696,7 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-warning",
-            attrs: { disabled: _vm.status === 0 },
+            attrs: { disabled: _vm.counter === 0 },
             on: { click: _vm.finishWatch }
           },
           [_vm._v("\n                Parar\n            ")]
@@ -64683,36 +64709,167 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "btn-group" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default dropdown-toggle",
-              attrs: {
-                disabled: _vm.status === 0,
-                type: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false"
-              }
-            },
-            [
-              _c("i", { staticClass: "fa fa-cogs" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "caret" })
-            ]
-          ),
+          _vm._m(0),
           _vm._v(" "),
           _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("h6", { staticClass: "dropdown-header" }, [_vm._v("Horas")]),
+            _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "#" }, on: { click: _vm.addHour } }, [
-                _vm._v("+1 Hora")
-              ])
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.addSeconds(3600)
+                    }
+                  }
+                },
+                [_vm._v("+1 Hora")]
+              )
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "#" }, on: { click: _vm.removeHour } }, [
-                _vm._v("-1 Hora")
-              ])
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.removeSeconds(3600)
+                    }
+                  }
+                },
+                [_vm._v("-1 Hora")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "dropdown-header" }, [
+              _vm._v("Adicionar Minutos")
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.addSeconds(300)
+                    }
+                  }
+                },
+                [_vm._v("+5 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.addSeconds(600)
+                    }
+                  }
+                },
+                [_vm._v("+10 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.addSeconds(900)
+                    }
+                  }
+                },
+                [_vm._v("+15 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.addSeconds(1800)
+                    }
+                  }
+                },
+                [_vm._v("+30 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "dropdown-header" }, [
+              _vm._v("Remover Minutos")
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.removeSeconds(300)
+                    }
+                  }
+                },
+                [_vm._v("-5 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.removeSeconds(600)
+                    }
+                  }
+                },
+                [_vm._v("-10 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.removeSeconds(900)
+                    }
+                  }
+                },
+                [_vm._v("-15 Minutos")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.removeSeconds(1800)
+                    }
+                  }
+                },
+                [_vm._v("-30 Minutos")]
+              )
             ])
           ])
         ])
@@ -64720,7 +64877,30 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-default dropdown-toggle",
+        attrs: {
+          type: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-cogs" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "caret" })
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
