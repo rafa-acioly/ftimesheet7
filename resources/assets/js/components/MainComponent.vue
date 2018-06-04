@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row flex-center">
-            <div class="col-md-5" v-for="client in clients" v-bind:key="client.id">
+            <div class="col-md-4" v-for="client in clients" v-bind:key="client.id">
                 <timer :client="client"></timer>
             </div>
         </div>

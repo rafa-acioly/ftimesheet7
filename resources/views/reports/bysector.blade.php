@@ -13,6 +13,9 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <div class="text-right">
+                        <h3>Total: {{ gmdate('H:i:s', $sum) }}</h3>
+                    </div>
                     @if (session()->has('success'))
                         <div class="alert alert-success">
                             {{ session()->get('success') }}

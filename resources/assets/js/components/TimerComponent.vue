@@ -27,7 +27,7 @@
                 <button
                     class="btn btn-info"
                     @click="resetWatch">
-                    Resetar
+                    Zerar
                 </button>
                 <div class="btn-group">
                     <button
@@ -41,18 +41,18 @@
                     </button>
                     <ul class="dropdown-menu">
                         <h6 class="dropdown-header">Horas</h6>
-                        <li><a href="#" @click="addSeconds(3600)">+1 Hora</a></li>
-                        <li><a href="#" @click="removeSeconds(3600)">-1 Hora</a></li>
+                        <li><a href="#" @click="addSeconds($event, 3600)">+1 Hora</a></li>
+                        <li><a href="#" @click="removeSeconds($event, 3600)">-1 Hora</a></li>
                         <h6 class="dropdown-header">Adicionar Minutos</h6>
-                        <li><a href="#" @click="addSeconds(300)">+5 Minutos</a></li>
-                        <li><a href="#" @click="addSeconds(600)">+10 Minutos</a></li>
-                        <li><a href="#" @click="addSeconds(900)">+15 Minutos</a></li>
-                        <li><a href="#" @click="addSeconds(1800)">+30 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds($event, 300)">+5 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds($event, 600)">+10 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds($event, 900)">+15 Minutos</a></li>
+                        <li><a href="#" @click="addSeconds($event, 1800)">+30 Minutos</a></li>
                         <h6 class="dropdown-header">Remover Minutos</h6>
-                        <li><a href="#" @click="removeSeconds(300)">-5 Minutos</a></li>
-                        <li><a href="#" @click="removeSeconds(600)">-10 Minutos</a></li>
-                        <li><a href="#" @click="removeSeconds(900)">-15 Minutos</a></li>
-                        <li><a href="#" @click="removeSeconds(1800)">-30 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds($event, 300)">-5 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds($event, 600)">-10 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds($event, 900)">-15 Minutos</a></li>
+                        <li><a href="#" @click="removeSeconds($event, 1800)">-30 Minutos</a></li>
                     </ul>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                 clearInterval(this.runClock);
             },
 
-            resetWatch() {
+            cleanReset() {
                 this.stopWatch();
                 this.counter = 0;
                 this.runClock = null;
@@ -128,11 +128,32 @@
                 document.querySelector('#client-'+this.client.id).innerHTML = "Iniciar";
             },
 
-            addSeconds(quantity) {
+            resetWatch() {
+                swal.queue([{
+                    type: 'warning',
+                    title: 'Resetar tempo?',
+                    text: 'Ao resetar o tempo o mesmo não sera gravado.',
+                    confirmButtonText: 'Sim, resetar!',
+                    cancelButtonText: 'Não, cancelar!',
+                    showCancelButton: true,
+                    showLoaderOnConfirm: true,
+                    preConfirm: () => {
+                        this.stopWatch();
+                        this.counter = 0;
+                        this.runClock = null;
+                        document.getElementById(this.client.id).innerHTML = "00:00:00";
+                        document.querySelector('#client-'+this.client.id).innerHTML = "Iniciar";
+                    }
+                }])
+            },
+
+            addSeconds(event, quantity) {
+                event.preventDefault();
                 this.counter += quantity;
             },
 
-            removeSeconds(quantity) {
+            removeSeconds(event, quantity) {
+                event.preventDefault();
                 if (this.counter < quantity) {
                     return;
                 }
@@ -170,7 +191,7 @@
                             startBTN.innerHTML = 'Iniciar'
                             this.used += this.counter;
                             this.$store.commit('stop', false);
-                            this.resetWatch();
+                            this.cleanReset();
                         })
                         .catch(error => {
                             swal.insertQueueStep({

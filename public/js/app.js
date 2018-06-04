@@ -64318,17 +64318,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.status = 0;
             clearInterval(this.runClock);
         },
-        resetWatch: function resetWatch() {
+        cleanReset: function cleanReset() {
             this.stopWatch();
             this.counter = 0;
             this.runClock = null;
             document.getElementById(this.client.id).innerHTML = "00:00:00";
             document.querySelector('#client-' + this.client.id).innerHTML = "Iniciar";
         },
-        addSeconds: function addSeconds(quantity) {
+        resetWatch: function resetWatch() {
+            var _this3 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a.queue([{
+                type: 'warning',
+                title: 'Resetar tempo?',
+                text: 'Ao resetar o tempo o mesmo não sera gravado.',
+                confirmButtonText: 'Sim, resetar!',
+                cancelButtonText: 'Não, cancelar!',
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                preConfirm: function preConfirm() {
+                    _this3.stopWatch();
+                    _this3.counter = 0;
+                    _this3.runClock = null;
+                    document.getElementById(_this3.client.id).innerHTML = "00:00:00";
+                    document.querySelector('#client-' + _this3.client.id).innerHTML = "Iniciar";
+                }
+            }]);
+        },
+        addSeconds: function addSeconds(event, quantity) {
+            event.preventDefault();
             this.counter += quantity;
         },
-        removeSeconds: function removeSeconds(quantity) {
+        removeSeconds: function removeSeconds(event, quantity) {
+            event.preventDefault();
             if (this.counter < quantity) {
                 return;
             }
@@ -64342,7 +64364,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.counter -= 3600;
         },
         finishWatch: function finishWatch() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.stopWatch();
             var time = document.getElementById(this.client.id).innerHTML;
@@ -64361,11 +64383,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 showLoaderOnConfirm: true,
                 preConfirm: function preConfirm() {
                     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('time/add', dataAPI).then(function (response) {
-                        var startBTN = document.querySelector('#client-' + _this3.client.id);
+                        var startBTN = document.querySelector('#client-' + _this4.client.id);
                         startBTN.innerHTML = 'Iniciar';
-                        _this3.used += _this3.counter;
-                        _this3.$store.commit('stop', false);
-                        _this3.resetWatch();
+                        _this4.used += _this4.counter;
+                        _this4.$store.commit('stop', false);
+                        _this4.cleanReset();
                     }).catch(function (error) {
                         __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a.insertQueueStep({
                             type: 'error',
@@ -64700,7 +64722,7 @@ var render = function() {
         _c(
           "button",
           { staticClass: "btn btn-info", on: { click: _vm.resetWatch } },
-          [_vm._v("\n                Resetar\n            ")]
+          [_vm._v("\n                Zerar\n            ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "btn-group" }, [
@@ -64716,7 +64738,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.addSeconds(3600)
+                      _vm.addSeconds($event, 3600)
                     }
                   }
                 },
@@ -64731,7 +64753,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.removeSeconds(3600)
+                      _vm.removeSeconds($event, 3600)
                     }
                   }
                 },
@@ -64750,7 +64772,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.addSeconds(300)
+                      _vm.addSeconds($event, 300)
                     }
                   }
                 },
@@ -64765,7 +64787,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.addSeconds(600)
+                      _vm.addSeconds($event, 600)
                     }
                   }
                 },
@@ -64780,7 +64802,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.addSeconds(900)
+                      _vm.addSeconds($event, 900)
                     }
                   }
                 },
@@ -64795,7 +64817,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.addSeconds(1800)
+                      _vm.addSeconds($event, 1800)
                     }
                   }
                 },
@@ -64814,7 +64836,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.removeSeconds(300)
+                      _vm.removeSeconds($event, 300)
                     }
                   }
                 },
@@ -64829,7 +64851,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.removeSeconds(600)
+                      _vm.removeSeconds($event, 600)
                     }
                   }
                 },
@@ -64844,7 +64866,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.removeSeconds(900)
+                      _vm.removeSeconds($event, 900)
                     }
                   }
                 },
@@ -64859,7 +64881,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      _vm.removeSeconds(1800)
+                      _vm.removeSeconds($event, 1800)
                     }
                   }
                 },
@@ -64920,7 +64942,7 @@ var render = function() {
       _vm._l(_vm.clients, function(client) {
         return _c(
           "div",
-          { key: client.id, staticClass: "col-md-5" },
+          { key: client.id, staticClass: "col-md-4" },
           [_c("timer", { attrs: { client: client } })],
           1
         )
