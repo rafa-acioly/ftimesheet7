@@ -145,9 +145,10 @@ class ReportController extends Controller
 
     public function filterByClient(Request $request)
     {
-        $client = \App\Client::find($request->id)->times()->whereBetween('created_at', [
-            \Carbon\Carbon::parse($request->start),
-            \Carbon\Carbon::parse($request->end)->addDay(1)
+        $client = \App\Client::find($request->id)->times()
+        ->whereBetween('created_at', [
+            \Carbon\Carbon::parse($request->start)->subDay(1)->format('Y-m-d'),
+            \Carbon\Carbon::parse($request->end)->addDay(1)->format('Y-m-d')
         ])->get();
 
         $now = \Carbon\Carbon::now();

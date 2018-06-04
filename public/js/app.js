@@ -64361,11 +64361,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 showLoaderOnConfirm: true,
                 preConfirm: function preConfirm() {
                     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('time/add', dataAPI).then(function (response) {
-                        __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a.insertQueueStep({
-                            type: 'success',
-                            title: 'Pronto',
-                            html: 'Voc\xEA gravou <strong>' + time + '</strong> para o cliente <strong>' + _this3.client.name + '</strong>'
-                        });
                         var startBTN = document.querySelector('#client-' + _this3.client.id);
                         startBTN.innerHTML = 'Iniciar';
                         _this3.used += _this3.counter;

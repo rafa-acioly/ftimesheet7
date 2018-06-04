@@ -166,11 +166,6 @@
                     preConfirm: () => {
                         return axios.post('time/add', dataAPI)
                         .then(response => {
-                            swal.insertQueueStep({
-                                type: 'success',
-                                title: 'Pronto',
-                                html: `Você gravou <strong>${time}</strong> para o cliente <strong>${this.client.name}</strong>`
-                            });
                             let startBTN = document.querySelector('#client-'+this.client.id)
                             startBTN.innerHTML = 'Iniciar'
                             this.used += this.counter;

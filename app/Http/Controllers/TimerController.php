@@ -109,7 +109,7 @@ class TimerController extends Controller
             ->where('created_at', '>=', \Carbon\Carbon::today());
 
         $now = \Carbon\Carbon::now();
-        $time = \Carbon\Carbon::parse();
+        $time = \Carbon\Carbon::now();
 
         $times->each(function ($record) use (&$time, &$n){
             list($hours, $minutes, $seconds) = explode(':', $record->duration);
